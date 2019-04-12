@@ -19,7 +19,7 @@ resource "aws_subnet" "subnet-pub-1" {
 resource "aws_subnet" "subnet-pub-2" {
   vpc_id     = "${aws_vpc.main_vpc.id}"
   cidr_block = "${var.subnet_pub_2_address}"
-  map_public_ip_on_launch = "true"
+  map_public_ip_on_launch = true
   availability_zone = "${data.aws_availability_zones.available.names[1]}"
 
   tags = {

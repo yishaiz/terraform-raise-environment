@@ -50,6 +50,11 @@ variable "ingressCIDRblock" {
         default = ["0.0.0.0/0"]
 }
 
+variable "egressCIDRblock" {
+        type = "list"
+        default = ["0.0.0.0/0"]
+}
+
 variable "mapPublicIP" {
         default = true
 }

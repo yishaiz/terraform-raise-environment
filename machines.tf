@@ -24,6 +24,7 @@ resource "aws_instance" "machine_pub1" {
     private_key = "${file(var.private_key_path)}"
   }
 
+}
 #   provisioner "remote-exec"{
 #     inline = [
 #         "sudo apt update -y",
@@ -33,7 +34,6 @@ resource "aws_instance" "machine_pub1" {
 #     ]
 #   }
 
-}
 
 
 
