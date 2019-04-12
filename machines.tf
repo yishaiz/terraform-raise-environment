@@ -8,6 +8,8 @@ resource "aws_instance" "machine_pub1" {
   subnet_id="${aws_subnet.subnet-pub-1.id}"
   key_name = "terraform-keypair"
 
+  associate_public_ip_address = true
+
   # availability_zone = "${var.availabilityZone}"
 
 

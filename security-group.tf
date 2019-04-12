@@ -78,7 +78,7 @@ resource "aws_network_acl" "Terraform_VPC_Security_ACL" {
     protocol   = "tcp"
     rule_no    = 200
     action     = "allow"
-    # cidr_blocks = "${var.destinationCIDRblock}" 
+    # cidrBlock = "${var.destinationCIDRblock}" 
     from_port  = 1
     to_port    = 65535
   }
