@@ -8,35 +8,32 @@ resource "aws_instance" "machine_pub1" {
   subnet_id="${aws_subnet.subnet-pub-1.id}"
   key_name = "terraform-keypair"
 
+  security_groups = ["${aws_security_group.terraform_vpc_security_group.id}"]
+
   associate_public_ip_address = true
-
-  # availability_zone = "${var.availabilityZone}"
-
-
 
   tags{
     Name = "terraform_machine_pub1"
   }
   
   connection {
-    
     # ec2-user
     user="ubuntu"
     type = "ssh"
     private_key = "${file(var.private_key_path)}"
   }
 
+
+
+  provisioner "remote-exec"{
+    inline = [
+        "sudo apt update -y",
+        "sudo apt install nginx -y",
+        "sudo service  nginx"
+    ]
+  }
+
 }
-#   provisioner "remote-exec"{
-#     inline = [
-#         "sudo apt update -y",
-# # "sudo apt install nginx -y",
-
-#         # "sudo service  nginx"
-#     ]
-#   }
-
-
 
 
 # temporary removed !
@@ -82,10 +79,15 @@ resource "aws_instance" "machine_prv2" {
 
 
 # multiple machines
-resource "aws_instance" "my_machines" {
+resource "aws_instance" "terraform_multiple_machines" {
   count=3
   ami="ami-0ac019f4fcb7cb7e6"
   instance_type="t2.micro"
 
   subnet_id="${aws_subnet.subnet-pub-1.id}"
+
+
+  tags{
+    Name="multiple machine # ${count.index}"
+  }
 }

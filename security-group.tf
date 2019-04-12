@@ -2,8 +2,8 @@
 
 resource "aws_security_group" "terraform_vpc_security_group" {
   vpc_id     = "${aws_vpc.main_vpc.id}"
-  name = "my vpc security group"
-  description = "my vpc security group"
+  name = "terraform vpc security group"
+  description = "terraform vpc security group"
 
   ingress{
     cidr_blocks = "${var.ingressCIDRblock}"
@@ -53,12 +53,16 @@ resource "aws_security_group" "terraform_vpc_security_group" {
 
 
   tags = {
-    Name =  "my vpc security group"
+    Name =  "terraform vpc security group"
   }
 }
 
 
 # create VPC Network access control list
+
+
+//it is working with it and also without it
+
 
 resource "aws_network_acl" "Terraform_VPC_Security_ACL" {
   vpc_id = "${aws_vpc.main_vpc.id}"
@@ -69,7 +73,7 @@ resource "aws_network_acl" "Terraform_VPC_Security_ACL" {
     protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
-    # cidrBlock = "${var.destinationCIDRblock}" 
+    cidr_block = "${var.destinationCIDRblock}" 
     from_port  = 22
     to_port    = 22
   }
@@ -78,7 +82,7 @@ resource "aws_network_acl" "Terraform_VPC_Security_ACL" {
     protocol   = "tcp"
     rule_no    = 200
     action     = "allow"
-    # cidrBlock = "${var.destinationCIDRblock}" 
+    cidr_block = "${var.destinationCIDRblock}" 
     from_port  = 1
     to_port    = 65535
   }
